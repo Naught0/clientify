@@ -64,7 +64,9 @@ module Clientify
       # Generates a customer object
       #
       # @param [CSV::Row] row
-      # @param [Boolean] test if true, email is faked. e.g. `james@gmail.com` becomes `james@example.gmail.com`
+      # @param [Boolean] test if true, email is faked. e.g. `james@gmail.com` becomes `james@gmail.example.com`
+      #
+      # @see [Create customer request](https://reference.chargify.com/v1/customers/create-customer)
       #
       # @return [Hash] API input object
       #
@@ -94,6 +96,8 @@ module Clientify
       #
       # @param [CSV::Row] row
       # @param [Boolean] test replaces `current_vault` with 'bogus' and `vault_token` with `1`
+      #
+      # @see [Create payment profile](https://reference.chargify.com/v1/payment-profiles/create-a-payment-profile)
       #
       # @return [Hash, nil] API input object
       #
@@ -130,8 +134,9 @@ module Clientify
       # @param [Boolean] test passed to each other generator function. Uses 'bogus' gateway on payment profiles with
       #   token value 1. Uses phony email for `customer_email` field e.g. `test@chargify.com` becomes
       #   `test@chargify.example.com`
+      # @see [Create subscription request model](https://reference.chargify.com/v1/subscriptions/create-subscription-request)
       #
-      # @return [Hash] api input
+      # @return [Hash] api input object
       #
       def subscription(row, customer_id: nil, customer_reference: nil, test: true)
         {
@@ -145,6 +150,7 @@ module Clientify
             product_price_point: row['product_price_point'],
             net_terms: row['net_terms'],
             currency: row['currency'],
+            receives_invoice_emails: row['receives_invoice_emails'],
             import_mrr: true,
             customer_id: customer_id,
             customer_reference: customer_reference,

@@ -410,7 +410,7 @@
       
       
         &mdash;
-        <div class='inline'><p>if true, email is faked. e.g. <code>james@gmail.com</code> becomes <code>james@example.gmail.com</code></p>
+        <div class='inline'><p>if true, email is faked. e.g. <code>james@gmail.com</code> becomes <code>james@gmail.example.com</code></p>
 </div>
       
     </li>
@@ -435,14 +435,19 @@
   
 </ul>
 
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>customer request](https://reference.chargify.com/v1/customers/create-customer)</li>
+    
+  </ul>
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-71
-72
 73
 74
 75
@@ -460,10 +465,12 @@
 87
 88
 89
-90</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_customer'>customer</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='label'>test:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fake_email'>fake_email</span> <span class='op'>=</span>
@@ -668,16 +675,19 @@
   
 </ul>
 
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>payment profile](https://reference.chargify.com/v1/payment-profiles/create-a-payment-profile)</li>
+    
+  </ul>
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-102
-103
-104
-105
 106
 107
 108
@@ -694,10 +704,14 @@
 119
 120
 121
-122</pre>
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_payment_profile'>payment_profile</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='label'>test:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pp'>pp</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -814,12 +828,19 @@ token value 1. Uses phony email for <code>customer_email</code> field e.g. <code
       
       
         &mdash;
-        <div class='inline'><p>api input</p>
+        <div class='inline'><p>api input object</p>
 </div>
       
     </li>
   
 </ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>subscription request model](https://reference.chargify.com/v1/subscriptions/create-subscription-request)</li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -827,11 +848,6 @@ token value 1. Uses phony email for <code>customer_email</code> field e.g. <code
       <pre class="lines">
 
 
-136
-137
-138
-139
-140
 141
 142
 143
@@ -848,10 +864,16 @@ token value 1. Uses phony email for <code>customer_email</code> field e.g. <code
 154
 155
 156
-157</pre>
+157
+158
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/generators.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscription'>subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='label'>customer_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>customer_reference:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>test:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='lbrace'>{</span>
@@ -865,6 +887,7 @@ token value 1. Uses phony email for <code>customer_email</code> field e.g. <code
       <span class='label'>product_price_point:</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>product_price_point</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
       <span class='label'>net_terms:</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>net_terms</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
       <span class='label'>currency:</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>currency</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>receives_invoice_emails:</span> <span class='id identifier rubyid_row'>row</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>receives_invoice_emails</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
       <span class='label'>import_mrr:</span> <span class='kw'>true</span><span class='comma'>,</span>
       <span class='label'>customer_id:</span> <span class='id identifier rubyid_customer_id'>customer_id</span><span class='comma'>,</span>
       <span class='label'>customer_reference:</span> <span class='id identifier rubyid_customer_reference'>customer_reference</span><span class='comma'>,</span>
@@ -885,7 +908,7 @@ token value 1. Uses phony email for <code>customer_email</code> field e.g. <code
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 21 21:46:53 2021 by
+  Generated on Tue Sep 21 22:02:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-3.0.1).
 </div>

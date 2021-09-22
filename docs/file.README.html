@@ -67,16 +67,21 @@
 
 <p>It’s best practice to use <code>bundle</code> with a <code>Gemfile</code>.</p>
 
-<p>Include the gem in your Gemfile<br />
-<code>gem 'clientify', git: 'git@github.com:Naught0/clientify.git'</code><br />
-And then simply<br />
-<code>$ bundle install</code></p>
+<p>Include the gem in your Gemfile</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientify</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>git@github.com:Naught0/clientify.git</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>And then simply</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle install
+</code></pre>
 
 <h2 id="usage">Usage</h2>
 
 <p>e.g. Creating a subscription from a CSV</p>
 
-<p>```rb
+<p>```ruby
 require ‘clientify’
 require ‘json’
 require ‘csv’</p>
@@ -95,9 +100,8 @@ end</p>
 <p>main
 ```</p>
 
-<p>e.g. Retrieving a payment profile by customer ID</p>
-
-<p>```rb
+<p>e.g. Retrieving a payment profile by customer ID<br />
+```ruby
 require ‘clientify’
 require ‘json’</p>
 
@@ -114,7 +118,7 @@ end</p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Sep 21 21:46:53 2021 by
+  Generated on Tue Sep 21 22:02:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-3.0.1).
 </div>
