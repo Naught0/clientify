@@ -5,7 +5,7 @@ module Clientify
   # A collection of generator functions which help primarily with subscription imports
   # @todo add options for invoice generation, and other objects
   #
-  class Generators
+  class Generate
     class << self
       #
       # Generate components from the standard CSV format
@@ -14,7 +14,7 @@ module Clientify
       #
       # @return [Array<Hash>, nil]
       #
-      def generate_components(row)
+      def components(row)
         components = row.map do |k, v|
           next unless k.include? 'component_id'
           next if k.nil?
@@ -48,7 +48,7 @@ module Clientify
       #
       # @return [Hash] { metafield: metadata }
       #
-      def generate_metafields(row, type)
+      def metafields(row, type)
         metafields = row.map do |k, v|
           next if k.nil?
           next if v.nil?
@@ -68,7 +68,7 @@ module Clientify
       #
       # @return [Hash] API input object
       #
-      def generate_customer(row, test: true)
+      def customer(row, test: true)
         fake_email =
           "#{row['customer_email'].gsub(/@.+/, '')}@#{row['customer_email'][/(?<=@)[^.]*.[^.]*(?=\.)/, 0]}.example.com"
         {
@@ -85,7 +85,7 @@ module Clientify
           country: row['customer_country'],
           phone: row['customer_phone'],
           vat_number: row['customer_vat_number'],
-          metafields: Generators.generate_metafields(row, 'customer')
+          metafields: Generate.metafields(row, 'customer')
         }.compact
       end
 
@@ -99,7 +99,7 @@ module Clientify
       #
       # @todo support bank account / ACH
       #
-      def generate_payment_profile(row, test: true)
+      def payment_profile(row, test: true)
         pp = {
           first_name: row['payment_profile_first_name'],
           last_name: row['payment_profile_last_name'],
@@ -133,7 +133,7 @@ module Clientify
       #
       # @return [Hash] api input
       #
-      def generate_subscription(row, customer_id: nil, customer_reference: nil, test: true)
+      def subscription(row, customer_id: nil, customer_reference: nil, test: true)
         {
           subscription: {
             payment_collection_method: row['payment_collection_method'],
@@ -148,10 +148,10 @@ module Clientify
             import_mrr: true,
             customer_id: customer_id,
             customer_reference: customer_reference,
-            customer_attributes: (customer_id.nil? ? Generators.generate_customer(row, test: test) : nil),
-            components: Generators.generate_components(row),
-            payment_profile_attributes: Generators.generate_payment_profile(row, test: test),
-            metafields: Generators.generate_metafields(row, 'subscription')
+            customer_attributes: (customer_id.nil? ? Generate.customer(row, test: test) : nil),
+            components: Generate.components(row),
+            payment_profile_attributes: Generate.payment_profile(row, test: test),
+            metafields: Generate.metafields(row, 'subscription')
           }.compact
         }
       end
