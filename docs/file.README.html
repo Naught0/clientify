@@ -60,65 +60,64 @@
       <div id="content"><div id='filecontents'><h1 id="chargify-clientify">Chargify Clientify</h1>
 
 <blockquote>
-  <p>Some useful utilities for interacting with the Chargify API, with particular care given to subscription imports.</p>
+<p>Some useful utilities for interacting with the Chargify API, with particular care given to subscription imports.</p>
 </blockquote>
 
 <h2 id="installation">Installation</h2>
 
-<p>It’s best practice to use <code>bundle</code> with a <code>Gemfile</code>.</p>
+<p>It&#39;s best practice to use <code>bundle</code> with a <code>Gemfile</code>.</p>
 
-<p>Include the gem in your Gemfile</p>
+<p>Include the gem in your Gemfile  </p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientify</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>git@github.com:Naught0/clientify.git</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<p>And then simply</p>
+<p>And then simply  </p>
 
 <pre class="code ruby"><code class="ruby">$ bundle install
 </code></pre>
 
 <h2 id="usage">Usage</h2>
 
-<p>e.g. Creating a subscription from a CSV</p>
+<p>e.g. Creating a subscription from a CSV  </p>
 
-<p>```ruby
-require ‘clientify’
-require ‘json’
-require ‘csv’</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientify</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>json</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>csv</span><span class='tstring_end'>&#39;</span></span>
 
-<p>def main
-  # Expected config format:
-  # { “api_key”: “abc123”, “subdomain”: “test” }
-  config = JSON.load_file(‘path/to/config.json’, symbolize_names: true)
-  client = Clientify::Client.new(config, log_fn: ‘log/path.log’)
-  data = CSV.table(‘path/to/data.csv’, header_converters: nil, converters: nil)</p>
+<span class='kw'>def</span> <span class='id identifier rubyid_main'>main</span>
+  <span class='comment'># Expected config format:
+</span>  <span class='comment'># { &quot;api_key&quot;: &quot;abc123&quot;, &quot;subdomain&quot;: &quot;test&quot; }
+</span>  <span class='id identifier rubyid_config'>config</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path/to/config.json</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>symbolize_names:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Clientify.html" title="Clientify (module)">Clientify</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Clientify/Client.html" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Clientify/Client.html#initialize-instance_method" title="Clientify::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='label'>log_fn:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>log/path.log</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path/to/data.csv</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>header_converters:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
 
-<p># Normally you’d iterate through the entire CSV, of course
-  resp = client.post(‘/subscriptions.json’, payload: Clientify::Generate.subscription(data[0], test: true))
-end</p>
+  <span class='comment'># Normally you&#39;d iterate through the entire CSV, of course
+</span>  <span class='id identifier rubyid_resp'>resp</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/subscriptions.json</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='const'><span class='object_link'><a href="Clientify.html" title="Clientify (module)">Clientify</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Clientify/Generate.html" title="Clientify::Generate (class)">Generate</a></span></span><span class='period'>.</span><span class='id identifier rubyid_subscription'><span class='object_link'><a href="Clientify/Generate.html#subscription-class_method" title="Clientify::Generate.subscription (method)">subscription</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>test:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
 
-<p>main
-```</p>
+<span class='id identifier rubyid_main'>main</span>
+</code></pre>
 
-<p>e.g. Retrieving a payment profile by customer ID<br />
-```ruby
-require ‘clientify’
-require ‘json’</p>
+<p>e.g. Retrieving a payment profile by customer ID  </p>
 
-<p>def main
-  config = { api_key: ‘an api key’, subdomain: ‘my-subdomain’ }
-  client = Clientify::Client.new(config, log_fn: ‘log/output.log’)
-  customer_id = 123456789</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>clientify</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>json</span><span class='tstring_end'>&#39;</span></span>
 
-<p>payment_profile = client.get(‘/payment_profiles.json’, params: { customer_id: customer_id })
-end</p>
+<span class='kw'>def</span> <span class='id identifier rubyid_main'>main</span>
+  <span class='id identifier rubyid_config'>config</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>api_key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>an api key</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>subdomain:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>my-subdomain</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Clientify.html" title="Clientify (module)">Clientify</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Clientify/Client.html" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Clientify/Client.html#initialize-instance_method" title="Clientify::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='label'>log_fn:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>log/output.log</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_customer_id'>customer_id</span> <span class='op'>=</span> <span class='int'>123456789</span>
 
-<p>main
-```</p>
+  <span class='id identifier rubyid_payment_profile'>payment_profile</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/payment_profiles.json</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='lbrace'>{</span> <span class='label'>customer_id:</span> <span class='id identifier rubyid_customer_id'>customer_id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+
+<span class='id identifier rubyid_main'>main</span>
+</code></pre>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Sep 21 22:02:46 2021 by
+  Generated on Tue Sep 21 22:10:01 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-3.0.1).
 </div>
