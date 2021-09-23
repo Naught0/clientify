@@ -1,2 +1,2 @@
 require 'clientify/client'
-require 'clientify/generators'
+require 'clientify/generate'
