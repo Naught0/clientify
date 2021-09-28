@@ -16,9 +16,9 @@ module Clientify
       #
       def components(row)
         components = row.map do |k, v|
-          next unless k.include? 'component_id'
           next if k.nil?
           next if v.nil?
+          next unless k.include? 'component_id'
 
           id, ppid = k.scan(/\[(\d+)\]/).flatten
           data = {
@@ -27,7 +27,7 @@ module Clientify
           }
           case k
           when /on_off/
-            data[:enabled] = %w[0 false off].include?(v&.to_s&.downcase) ? false : true
+            data[:enabled] = !%w[0 false off].include?(v&.to_s&.downcase)
           when /metered/
             data[:unit_balance] = v.to_f
           when /quantity/
@@ -71,9 +71,14 @@ module Clientify
       # @return [Hash] API input object
       #
       def customer(row, test: true)
-        fake_email =
-          "#{row['customer_email'].gsub(/@.+/, '')}@#{row['customer_email'][/(?<=@)[^.]*.[^.]*(?=\.)/, 0]}.example.com"
-        {
+        fake_email = if row['customer_email'].nil?
+                       nil
+                     else
+                       "#{row['customer_email'].gsub(/@.+/,
+                                                     '')}@#{row['customer_email'][/(?<=@)[^.]*.[^.]*(?=\.)/,
+                                                                                  0]}.example.com"
+                     end
+        cust = {
           first_name: row['customer_first_name'],
           last_name: row['customer_last_name'],
           reference: row['customer_reference'],
@@ -89,6 +94,8 @@ module Clientify
           vat_number: row['customer_vat_number'],
           metafields: Generate.metafields(row, 'customer')
         }.compact
+        # Return nil so that .compact has expected results later
+        cust.empty? ? nil : cust
       end
 
       #
