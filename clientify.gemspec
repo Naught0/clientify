@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'clientify'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.summary     = 'A bundle of utilities for interacting with the Chargify API.'
   s.description = 'A light wrapper for the Chargify API with logging capabilities. Comes bundled with some relatively generic generators for common Chargify API objects.'
   s.authors     = ['James Euteneuer']

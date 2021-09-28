@@ -114,6 +114,8 @@ module Clientify
         pp = {
           first_name: row['payment_profile_first_name'],
           last_name: row['payment_profile_last_name'],
+          full_number: row['payment_profile_full_number'],
+          cvv: row['payment_profile_cvv'],
           last_four: row['payment_profile_last_four'],
           card_type: row['payment_profile_card_type'],
           expiration_month: row['payment_profile_expiration_month'],
