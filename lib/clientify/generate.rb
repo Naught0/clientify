@@ -112,6 +112,7 @@ module Clientify
       #
       def payment_profile(row, test: true)
         pp = {
+          payment_type: row['payment_type'],
           first_name: row['payment_profile_first_name'],
           last_name: row['payment_profile_last_name'],
           full_number: row['payment_profile_full_number'],
@@ -126,6 +127,10 @@ module Clientify
           billing_state: row['payment_profile_billing_state'],
           billing_country: row['payment_profile_billing_country'],
           billing_zip: row['payment_profile_billing_zip'],
+          bank_routing_number: row['bank_routing_number'],
+          bank_account_number: row['bank_account_number'],
+          bank_account_holder_type: row['bank_account_holder_type'],
+          gateway_handle: row['gateway_handle'],
           current_vault: (test ? 'bogus' : row['payment_profile_current_vault']),
           vault_token: (test ? 1 : row['payment_profile_vault_token']),
           customer_vault_token: (test ? 1 : row['payment_profile_customer_vault_token'])
