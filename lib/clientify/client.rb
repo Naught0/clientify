@@ -1,18 +1,23 @@
 module Clientify
   # frozen_string_literal: true
+  require 'httparty'
+  require 'json'
 
   class Client
-    def initialize(config, log: true, log_fn: 'log/import.log')
-      require 'http'
-      require 'json'
-      @auth = HTTP.basic_auth({ user: config[:api_key], pass: 'x' })
-      @base = "https://#{config[:subdomain]}.chargify.com"
+    include HTTParty
 
+    def initialize(config, log: true, log_fn: 'log/import.log')
+      @base_uri = "https://#{config[:subdomain]}.chargify.com"
+      @options = {
+        format: :plain,
+        basic_auth: { username: config[:api_key], password: 'x' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      }
       return unless log
 
       require 'httplog'
       HttpLog.configure do |conf|
-        conf.logger = Logger.new(log_fn)
+        conf.logger = ::Logger.new(log_fn)
         conf.enabled = true
         conf.log_headers = false
         conf.log_benchmark = false
@@ -21,72 +26,74 @@ module Clientify
       end
     end
 
-    class << self
-      #
-      # Takes a HTTP::Response and returns a hash.
-      # If there is an error, `:errors` will be populated
-      # If there is an non JSON serializable response, it is cast to a string
-      # and returned under the `:response` key
-      #
-      # @param [HTTP::Response] resp HTTP response
-      #
-      # @return [Hash]
-      #
-      def to_hash_sym(resp)
-        return { errors: resp.body.to_s, status: resp.code } unless resp.code < 400
-
-        JSON.parse(resp.body, symbolize_names: true)
+    #
+    # Give the people what they want
+    #
+    # @param [HTTParty::Response] resp
+    #
+    # @return [Hash]
+    #
+    def self.to_resp(resp)
+      begin
+        return JSON.parse(resp.body, symbolize_names: true) if resp.code < 400
       rescue JSON::ParserError
-        { response: resp.body.to_s }
+        return { response: resp.body }
       end
+
+      { errors: resp.body, code: resp.code } if resp.code >= 400
     end
 
     #
-    # Makes a POST request to the Chargify API
+    # Make a GET request
     #
-    # @param [String] url the relative path of the endpoint e.g. `/subscriptions.json`
-    # @param [Hash] payload
+    # @param [String] url relative path
+    # @param [Hash] params
     #
-    # @return [Hash] Chargify API resposne
-    #
-    def post(url, payload: nil)
-      Client.to_hash_sym @auth.post("#{@base}#{url}", json: payload)
-    end
-
-    #
-    # Makes a PUT request to the Chargify API
-    #
-    # @param [String] url the relative path of the endpoint e.g. `/subscriptions/123456789.json`
-    # @param [Hash] payload
-    #
-    # @return [Hash] Chargify API response
-    #
-    def put(url, payload: nil)
-      Client.to_hash_sym @auth.put("#{@base}#{url}", json: payload)
-    end
-
-    #
-    # Makes a GET request to the Chargify API
-    #
-    # @param [String] url the relative path of the endpoint e.g. `/customers.json`
-    # @param [Hash] params URL parameters for the GET request in Hash form e.g. `{ q: 'test@example.net' }`
-    #
-    # @return [Hash] Chargify API response
+    # @return [Hash, Array<Hash>]
     #
     def get(url, params: nil)
-      Client.to_hash_sym @auth.get("#{@base}#{url}", params: params)
+      Client.to_resp self.class.get("#{@base_uri}#{url}", @options.merge({ query: params }))
     end
 
     #
-    # Makes a DELETE request to the Chargify API
+    # Make a POST request
     #
-    # @param [String] url the relative path of the endpoint e.g. `/customers.json`
-    # @param [Hash] payload
+    # @param [String] url relative path
+    # @param [Hash, Array, nil] payload
+    # @param [Hash, nil] params
     #
-    # @return [Hash] Chargify API response
+    # @return [Hash, Array<Hash>]
     #
-    def delete(url, payload: nil)
-      Client.to_hash_sym @auth.delete("#{@base}#{url}", json: payload)
+    def post(url, payload: nil, params: nil)
+      Client.to_resp self.class.post("#{@base_uri}#{url}", @options.merge({ query: params, body: payload.to_json }).compact)
+    end
+
+    #
+    # Make a PUT request
+    #
+    # @param [String] url relative path
+    # @param [Hash, Array, nil] payload
+    # @param [Hash, Array<Hash>] params URL params
+    #
+    # @return [Hash]
+    #
+    def put(url, payload: nil, params: nil)
+      Client.to_resp self.class.put("#{@base_uri}#{url}",
+                                    @options.merge({ query: params, body: payload.to_json }).compact)
+    end
+
+    #
+    # Make a DELETE request
+    #
+    # @param [String] url relative URL to base_uri
+    # @param [Hash, Array, nil] payload
+    # @param [Hash] params
+    #
+    # @return [Hash, Array<Hash>]
+    #
+    def delete(url, payload: nil, params: nil)
+      Client.to_resp self.class.delete("#{@base_uri}#{url}",
+                                       @options.merge({ query: params, body: payload.to_json }).compact)
     end
   end
 end
