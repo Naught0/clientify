@@ -36,7 +36,7 @@ def main
   # { "api_key": "abc123", "subdomain": "test" }
   config = JSON.parse(File.read('path/to/config.json'), symbolize_names: true)
   client = Clientify::Client.new(config, log_fn: 'log/path.log')
-  data = CSV.table('path/to/data.csv', header_converters: nil, converters: nil)
+  data = CSV.read('path/to/data.csv', headers: true)
 
   # Normally you'd iterate through the entire CSV, of course
   resp = client.post('/subscriptions.json', payload: Clientify::Generate.subscription(data[0], test: true))
