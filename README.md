@@ -34,7 +34,7 @@ require 'csv'
 def main
   # Expected config format:
   # { "api_key": "abc123", "subdomain": "test" }
-  config = JSON.load_file('path/to/config.json', symbolize_names: true)
+  config = JSON.parse(File.read('path/to/config.json'), symbolize_names: true)
   client = Clientify::Client.new(config, log_fn: 'log/path.log')
   data = CSV.table('path/to/data.csv', header_converters: nil, converters: nil)
 
