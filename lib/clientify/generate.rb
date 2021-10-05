@@ -12,7 +12,7 @@ module Clientify
       #
       # @param [CSV::Row] row
       #
-      # @return [Array<Hash>, nil]
+      # @return [Array<Hash>]
       #
       def components(row)
         components = row.map do |k, v|
@@ -106,7 +106,7 @@ module Clientify
       #
       # @see https://reference.chargify.com/v1/payment-profiles/create-a-payment-profile Create payment profile
       #
-      # @return [Hash, nil] API input object
+      # @return [Hash] API input object
       #
       # @todo support bank account / ACH
       #
@@ -169,11 +169,32 @@ module Clientify
             import_mrr: true,
             customer_id: customer_id,
             customer_reference: customer_reference,
-            customer_attributes: (customer_id.nil? ? Generate.customer(row, test: test) : nil),
+            customer_attributes: (if customer_id.nil? && customer_reference.nil?
+                                    Generate.customer(row,
+                                                      test: test)
+                                  end),
             components: Generate.components(row),
             payment_profile_attributes: Generate.payment_profile(row, test: test),
             metafields: Generate.metafields(row, 'subscription')
           }.compact
+        }
+      end
+
+      #
+      # Generate an ad-hoc invoice
+      #
+      # @param [Array<CSV::Row>] line_items
+      #   ```{ title: 'title', quantity: 10, unit_price: '10', taxable: false, tax_code: 'd000000',
+      #   period_range_start: '2021-10-01', period_range_end: '2021-11-01' }```
+      # @param [Hash] options `{ issue_date: 'string', net_terms: 30, payment_instructions: 'pay me', memo: 'please' }`
+      #
+      # @return [Hash]
+      #
+      def invoice(line_items, options: nil)
+        {
+          invoice: {
+            line_items: line_items.map(&:to_h)
+          }.merge(options || {})
         }
       end
     end
