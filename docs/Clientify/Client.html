@@ -87,6 +87,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd>HTTParty</dd>
+  </dl>
+  
   
 
   
@@ -99,17 +104,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    <p>frozen_string_literal: true</p>
 
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
 
 
 
@@ -127,7 +122,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_hash_sym-class_method" title="to_hash_sym (class method)">.<strong>to_hash_sym</strong>(resp)  &#x21d2; Hash </a>
+      <a href="#to_resp-class_method" title="to_resp (class method)">.<strong>to_resp</strong>(resp)  &#x21d2; Hash </a>
     
 
     
@@ -141,7 +136,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Takes a HTTP::Response and returns a hash.</p>
+    <span class="summary_desc"><div class='inline'><p>Give the people what they want.</p>
 </div></span>
   
 </li>
@@ -159,7 +154,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(url, payload: nil)  &#x21d2; Hash </a>
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(url, payload: nil, params: nil)  &#x21d2; Hash<sup>+</sup> </a>
     
 
     
@@ -173,7 +168,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Makes a DELETE request to the Chargify API.</p>
+    <span class="summary_desc"><div class='inline'><p>Make a DELETE request.</p>
 </div></span>
   
 </li>
@@ -182,7 +177,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get-instance_method" title="#get (instance method)">#<strong>get</strong>(url, params: nil)  &#x21d2; Hash </a>
+      <a href="#get-instance_method" title="#get (instance method)">#<strong>get</strong>(url, params: nil)  &#x21d2; Hash<sup>+</sup> </a>
     
 
     
@@ -196,7 +191,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Makes a GET request to the Chargify API.</p>
+    <span class="summary_desc"><div class='inline'><p>Make a GET request.</p>
 </div></span>
   
 </li>
@@ -230,7 +225,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#post-instance_method" title="#post (instance method)">#<strong>post</strong>(url, payload: nil)  &#x21d2; Hash </a>
+      <a href="#post-instance_method" title="#post (instance method)">#<strong>post</strong>(url, payload: nil, params: nil)  &#x21d2; Hash<sup>+</sup> </a>
     
 
     
@@ -244,7 +239,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Makes a POST request to the Chargify API.</p>
+    <span class="summary_desc"><div class='inline'><p>Make a POST request.</p>
 </div></span>
   
 </li>
@@ -253,7 +248,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#put-instance_method" title="#put (instance method)">#<strong>put</strong>(url, payload: nil)  &#x21d2; Hash </a>
+      <a href="#put-instance_method" title="#put (instance method)">#<strong>put</strong>(url, payload: nil, params: nil)  &#x21d2; Hash </a>
     
 
     
@@ -267,7 +262,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Makes a PUT request to the Chargify API.</p>
+    <span class="summary_desc"><div class='inline'><p>Make a PUT request.</p>
 </div></span>
   
 </li>
@@ -276,7 +271,8 @@
     </ul>
   
 
-<div id="constructor_details" class="method_details_list">
+
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -304,10 +300,6 @@
       <pre class="lines">
 
 
-5
-6
-7
-8
 9
 10
 11
@@ -321,22 +313,28 @@
 19
 20
 21
-22</pre>
+22
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='label'>log:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>log_fn:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>log/import.log</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>http</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>json</span><span class='tstring_end'>&#39;</span></span>
-  <span class='ivar'>@auth</span> <span class='op'>=</span> <span class='const'>HTTP</span><span class='period'>.</span><span class='id identifier rubyid_basic_auth'>basic_auth</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user:</span> <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:api_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>pass:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>x</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='ivar'>@base</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:subdomain</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.chargify.com</span><span class='tstring_end'>&quot;</span></span>
-
+  <span class='ivar'>@base_uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:subdomain</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.chargify.com</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>format:</span> <span class='symbol'>:plain</span><span class='comma'>,</span>
+    <span class='label'>basic_auth:</span> <span class='lbrace'>{</span> <span class='label'>username:</span> <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:api_key</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>password:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>x</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>headers:</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Accept</span><span class='label_end'>&#39;:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_log'>log</span>
 
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>httplog</span><span class='tstring_end'>&#39;</span></span>
   <span class='const'>HttpLog</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_conf'>conf</span><span class='op'>|</span>
-    <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_log_fn'>log_fn</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_log_fn'>log_fn</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_enabled'>enabled</span> <span class='op'>=</span> <span class='kw'>true</span>
     <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_log_headers'>log_headers</span> <span class='op'>=</span> <span class='kw'>false</span>
     <span class='id identifier rubyid_conf'>conf</span><span class='period'>.</span><span class='id identifier rubyid_log_benchmark'>log_benchmark</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -357,9 +355,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="to_hash_sym-class_method">
+  <h3 class="signature first" id="to_resp-class_method">
   
-    .<strong>to_hash_sym</strong>(resp)  &#x21d2; <tt>Hash</tt> 
+    .<strong>to_resp</strong>(resp)  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -367,10 +365,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Takes a HTTP::Response and returns a hash.
-If there is an error, <code>:errors</code> will be populated
-If there is an non JSON serializable response, it is cast to a string
-and returned under the <code>:response</code> key</p>
+    <p>Give the people what they want</p>
 
 
   </div>
@@ -384,13 +379,9 @@ and returned under the <code>:response</code> key</p>
         <span class='name'>resp</span>
       
       
-        <span class='type'>(<tt>HTTP::Response</tt>)</span>
+        <span class='type'>(<tt>HTTParty::Response</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'><p>HTTP response</p>
-</div>
       
     </li>
   
@@ -416,23 +407,27 @@ and returned under the <code>:response</code> key</p>
       <pre class="lines">
 
 
-35
 36
 37
 38
 39
 40
-41</pre>
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 36</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_hash_sym'>to_hash_sym</span><span class='lparen'>(</span><span class='id identifier rubyid_resp'>resp</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>errors:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='op'>&lt;</span> <span class='int'>400</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_resp'>to_resp</span><span class='lparen'>(</span><span class='id identifier rubyid_resp'>resp</span><span class='rparen'>)</span>
+  <span class='kw'>begin</span>
+    <span class='kw'>return</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>symbolize_names:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='op'>&lt;</span> <span class='int'>400</span>
+  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
+    <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>response:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
 
-  <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>symbolize_names:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-<span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-  <span class='lbrace'>{</span> <span class='label'>response:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
+  <span class='lbrace'>{</span> <span class='label'>errors:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>code:</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resp'>resp</span><span class='period'>.</span><span class='id identifier rubyid_code'>code</span> <span class='op'>&gt;=</span> <span class='int'>400</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -448,7 +443,7 @@ and returned under the <code>:response</code> key</p>
       <div class="method_details first">
   <h3 class="signature first" id="delete-instance_method">
   
-    #<strong>delete</strong>(url, payload: nil)  &#x21d2; <tt>Hash</tt> 
+    #<strong>delete</strong>(url, payload: nil, params: nil)  &#x21d2; <tt>Hash</tt><sup>+</sup> 
   
 
   
@@ -456,7 +451,7 @@ and returned under the <code>:response</code> key</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Makes a DELETE request to the Chargify API</p>
+    <p>Make a DELETE request</p>
 
 
   </div>
@@ -475,7 +470,7 @@ and returned under the <code>:response</code> key</p>
       
       
         &mdash;
-        <div class='inline'><p>the relative path of the endpoint e.g. <code>/customers.json</code></p>
+        <div class='inline'><p>relative URL to base_uri</p>
 </div>
       
     </li>
@@ -483,6 +478,19 @@ and returned under the <code>:response</code> key</p>
     <li>
       
         <span class='name'>payload</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>Array</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
@@ -501,13 +509,9 @@ and returned under the <code>:response</code> key</p>
     <li>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array&lt;Hash&gt;</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'><p>Chargify API response</p>
-</div>
       
     </li>
   
@@ -519,15 +523,17 @@ and returned under the <code>:response</code> key</p>
       <pre class="lines">
 
 
-88
-89
-90</pre>
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 94</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_hash_sym'><span class='object_link'><a href="#to_hash_sym-class_method" title="Clientify::Client.to_hash_sym (method)">to_hash_sym</a></span></span> <span class='ivar'>@auth</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>json:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_resp'><span class='object_link'><a href="#to_resp-class_method" title="Clientify::Client.to_resp (method)">to_resp</a></span></span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base_uri</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                                   <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -537,7 +543,7 @@ and returned under the <code>:response</code> key</p>
       <div class="method_details ">
   <h3 class="signature " id="get-instance_method">
   
-    #<strong>get</strong>(url, params: nil)  &#x21d2; <tt>Hash</tt> 
+    #<strong>get</strong>(url, params: nil)  &#x21d2; <tt>Hash</tt><sup>+</sup> 
   
 
   
@@ -545,7 +551,7 @@ and returned under the <code>:response</code> key</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Makes a GET request to the Chargify API</p>
+    <p>Make a GET request</p>
 
 
   </div>
@@ -564,7 +570,7 @@ and returned under the <code>:response</code> key</p>
       
       
         &mdash;
-        <div class='inline'><p>the relative path of the endpoint e.g. <code>/customers.json</code></p>
+        <div class='inline'><p>relative path</p>
 </div>
       
     </li>
@@ -580,10 +586,6 @@ and returned under the <code>:response</code> key</p>
         <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
-        &mdash;
-        <div class='inline'><p>URL parameters for the GET request in Hash form e.g. <code>{ q: &#39;test@example.net&#39; }</code></p>
-</div>
-      
     </li>
   
 </ul>
@@ -594,13 +596,9 @@ and returned under the <code>:response</code> key</p>
     <li>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array&lt;Hash&gt;</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'><p>Chargify API response</p>
-</div>
       
     </li>
   
@@ -612,15 +610,15 @@ and returned under the <code>:response</code> key</p>
       <pre class="lines">
 
 
-76
-77
-78</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_hash_sym'><span class='object_link'><a href="#to_hash_sym-class_method" title="Clientify::Client.to_hash_sym (method)">to_hash_sym</a></span></span> <span class='ivar'>@auth</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>params:</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_resp'><span class='object_link'><a href="#to_resp-class_method" title="Clientify::Client.to_resp (method)">to_resp</a></span></span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base_uri</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -630,7 +628,7 @@ and returned under the <code>:response</code> key</p>
       <div class="method_details ">
   <h3 class="signature " id="post-instance_method">
   
-    #<strong>post</strong>(url, payload: nil)  &#x21d2; <tt>Hash</tt> 
+    #<strong>post</strong>(url, payload: nil, params: nil)  &#x21d2; <tt>Hash</tt><sup>+</sup> 
   
 
   
@@ -638,7 +636,7 @@ and returned under the <code>:response</code> key</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Makes a POST request to the Chargify API</p>
+    <p>Make a POST request</p>
 
 
   </div>
@@ -657,7 +655,7 @@ and returned under the <code>:response</code> key</p>
       
       
         &mdash;
-        <div class='inline'><p>the relative path of the endpoint e.g. <code>/subscriptions.json</code></p>
+        <div class='inline'><p>relative path</p>
 </div>
       
     </li>
@@ -667,7 +665,20 @@ and returned under the <code>:response</code> key</p>
         <span class='name'>payload</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
@@ -683,13 +694,9 @@ and returned under the <code>:response</code> key</p>
     <li>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array&lt;Hash&gt;</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'><p>Chargify API resposne</p>
-</div>
       
     </li>
   
@@ -701,15 +708,15 @@ and returned under the <code>:response</code> key</p>
       <pre class="lines">
 
 
-52
-53
-54</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 67</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_hash_sym'><span class='object_link'><a href="#to_hash_sym-class_method" title="Clientify::Client.to_hash_sym (method)">to_hash_sym</a></span></span> <span class='ivar'>@auth</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>json:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_resp'><span class='object_link'><a href="#to_resp-class_method" title="Clientify::Client.to_resp (method)">to_resp</a></span></span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base_uri</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -719,7 +726,7 @@ and returned under the <code>:response</code> key</p>
       <div class="method_details ">
   <h3 class="signature " id="put-instance_method">
   
-    #<strong>put</strong>(url, payload: nil)  &#x21d2; <tt>Hash</tt> 
+    #<strong>put</strong>(url, payload: nil, params: nil)  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -727,7 +734,7 @@ and returned under the <code>:response</code> key</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Makes a PUT request to the Chargify API</p>
+    <p>Make a PUT request</p>
 
 
   </div>
@@ -746,7 +753,7 @@ and returned under the <code>:response</code> key</p>
       
       
         &mdash;
-        <div class='inline'><p>the relative path of the endpoint e.g. <code>/subscriptions/123456789.json</code></p>
+        <div class='inline'><p>relative path</p>
 </div>
       
     </li>
@@ -756,11 +763,28 @@ and returned under the <code>:response</code> key</p>
         <span class='name'>payload</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>, <tt>Array</tt>, <tt>nil</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>nil</tt>)</em>
       
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>Array&lt;Hash&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>URL params</p>
+</div>
       
     </li>
   
@@ -776,10 +800,6 @@ and returned under the <code>:response</code> key</p>
       
       
       
-        &mdash;
-        <div class='inline'><p>Chargify API response</p>
-</div>
-      
     </li>
   
 </ul>
@@ -790,15 +810,17 @@ and returned under the <code>:response</code> key</p>
       <pre class="lines">
 
 
-64
-65
-66</pre>
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/clientify/client.rb', line 80</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_hash_sym'><span class='object_link'><a href="#to_hash_sym-class_method" title="Clientify::Client.to_hash_sym (method)">to_hash_sym</a></span></span> <span class='ivar'>@auth</span><span class='period'>.</span><span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>json:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>payload:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>params:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="" title="Clientify::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_resp'><span class='object_link'><a href="#to_resp-class_method" title="Clientify::Client.to_resp (method)">to_resp</a></span></span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base_uri</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url'>url</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                                <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>query:</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -810,7 +832,7 @@ and returned under the <code>:response</code> key</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Sep 23 15:46:42 2021 by
+  Generated on Tue Oct  5 09:17:26 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-3.0.1).
 </div>
