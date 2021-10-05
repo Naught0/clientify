@@ -6,17 +6,25 @@
 
 It's best practice to use `bundle` with a `Gemfile`.
 
-Include the gem in your Gemfile  
+Include the gem in your Gemfile
 
-    gem 'clientify', git: 'git@github.com:Naught0/clientify.git'
+```rb
+# ssh
+gem 'clientify', git: 'git@github.com:Naught0/clientify.git'
+```
 
-And then simply  
+```rb
+# HTTPS
+gem 'clientify', git: 'https://github.com/Naught0/clientify'
+```
+
+And then simply
 
     $ bundle install
 
 ## Usage
 
-e.g. Creating a subscription from a CSV  
+e.g. Creating a subscription from a CSV
 
 ```ruby
 require 'clientify'
@@ -35,9 +43,10 @@ def main
 end
 
 main
-```  
+```
 
-e.g. Retrieving a payment profile by customer ID  
+e.g. Retrieving a payment profile by customer ID
+
 ```ruby
 require 'clientify'
 require 'json'
@@ -52,4 +61,3 @@ end
 
 main
 ```
-
